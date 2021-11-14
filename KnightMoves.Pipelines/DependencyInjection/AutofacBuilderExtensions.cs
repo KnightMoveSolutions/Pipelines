@@ -10,14 +10,14 @@ namespace KnightMoves.Pipelines.DependencyInjection
 {
     public static class AutofacBuilderExtensions
     {
-        public static ContainerBuilder AddPipelineCoordinator<TOpMgr, TContext>(this ContainerBuilder builder)
+        public static ContainerBuilder AddPipelineCoordinator<TOpMgr, TContext>(this ContainerBuilder builder, Assembly assembly)
             where TOpMgr : IPipelineCoordinator<TContext>
             where TContext : IPipelineContext, new()
         {
-            return builder.AddPipelineCoordinator<TOpMgr, TContext>(new List<Type>());
+            return builder.AddPipelineCoordinator<TOpMgr, TContext>(assembly, new List<Type>());
         }
 
-        public static ContainerBuilder AddPipelineCoordinator<TOpMgr, TContext>(this ContainerBuilder builder, IEnumerable<Type> forcedImplementations)
+        public static ContainerBuilder AddPipelineCoordinator<TOpMgr, TContext>(this ContainerBuilder builder, Assembly assembly, IEnumerable<Type> forcedImplementations)
             where TOpMgr : IPipelineCoordinator<TContext>
             where TContext : IPipelineContext
         {
@@ -27,7 +27,7 @@ namespace KnightMoves.Pipelines.DependencyInjection
                    .InstancePerDependency();
 
             // Operations for IList<> injection
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+            builder.RegisterAssemblyTypes(assembly)
                    .Where
                    (t =>
                         t.IsAssignableTo<IPipelineOperation<TContext>>() &&
@@ -37,7 +37,7 @@ namespace KnightMoves.Pipelines.DependencyInjection
                    .SingleInstance();
 
             // Async Operations for IList<> injection
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+            builder.RegisterAssemblyTypes(assembly)
                    .Where(t => t.IsAssignableTo<IPipelineOperationAsync<TContext>>())
                    .AsImplementedInterfaces()
                    .SingleInstance();

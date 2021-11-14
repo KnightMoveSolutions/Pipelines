@@ -1,0 +1,606 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Operations &mdash; KnightMoves.Pipelines 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Async Operations" href="async-operations.html" />
+    <link rel="prev" title="Pipeline Coordinator" href="pipeline-coordinator.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> KnightMoves.Pipelines
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how-it-works.html">How It Works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline-context.html">Pipeline Context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline-coordinator.html">Pipeline Coordinator</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Operations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#steps-to-create-an-operation">Steps to Create an Operation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-1-add-new-class">Step 1: Add New Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-create-marker-interface">Step 2: Create Marker Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3-inherit-and-implement">Step 3: Inherit and Implement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-4-implement-operation-logic">Step 4: Implement Operation Logic</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-pipeline-context">Using the Pipeline Context</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#successful">Successful</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#endprocessing">EndProcessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#resultmessages">ResultMessages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exceptions">Exceptions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="async-operations.html">Async Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operation-dependencies.html">Operation Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging-and-error-handling.html">Logging and Error Handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multiple-operation-implementations.html">Multiple Operation Implementations</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">KnightMoves.Pipelines</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Operations</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/operations.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="operations">
+<h1>Operations<a class="headerlink" href="#operations" title="Permalink to this headline">¶</a></h1>
+<p>Operations are where the logic of the pipeline reside. Here we will be discussing non-async Operations.
+You should create this type of Operation to implement logic that does not do anything that would merit
+asynchronous execution.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Don’t use a non-async Operation when its logic</p>
+<ul class="simple">
+<li><p>Executes a long running calculation</p></li>
+<li><p>Uses File System IO</p></li>
+<li><p>Communicates over the network (e.g. REST API calls, RPC, print jobs, etc.)</p></li>
+<li><p>Reads / Writes from/to a database</p></li>
+</ul>
+</div>
+<p>To create a non-async Operation follow the steps below.</p>
+<div class="section" id="steps-to-create-an-operation">
+<h2>Steps to Create an Operation<a class="headerlink" href="#steps-to-create-an-operation" title="Permalink to this headline">¶</a></h2>
+<p><strong>Pre-Requisite</strong></p>
+<p>You must have created the <a class="reference internal" href="pipeline-context.html"><span class="doc">Pipeline Context</span></a> object that your Operation will use as a state object.
+The <a class="reference internal" href="pipeline-coordinator.html"><span class="doc">Pipeline Coordinator</span></a> will take care of injecting that state object into the Operation’s
+<code class="docutils literal notranslate"><span class="pre">Execute(TContext)</span></code> method.</p>
+<div class="section" id="step-1-add-new-class">
+<h3>Step 1: Add New Class<a class="headerlink" href="#step-1-add-new-class" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-csharp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Text</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">MyApplication.Operations</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">MyOperation</span>
+    <span class="p">{</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is recommended that you suffix the class with “Operation” as a naming convention.</p>
+</div>
+</div>
+<div class="section" id="step-2-create-marker-interface">
+<h3>Step 2: Create Marker Interface<a class="headerlink" href="#step-2-create-marker-interface" title="Permalink to this headline">¶</a></h3>
+<p>Create a marker interface that inherits from <code class="docutils literal notranslate"><span class="pre">IPipelineOperation&lt;TContext&gt;</span></code> and specify the type of the application’s
+<a class="reference internal" href="pipeline-context.html"><span class="doc">Pipeline Context</span></a> state object that this Operation will handle as its <code class="docutils literal notranslate"><span class="pre">TContext</span></code>.</p>
+<div class="highlight-csharp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">using</span> <span class="n">KnightMoves</span><span class="p">.</span><span class="n">Pipelines</span><span class="p">.</span><span class="n">Interfaces</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">MyApplication.Operations</span>
+<span class="p">{</span>
+    <span class="c1">// Marker Interface</span>
+    <span class="k">public</span> <span class="k">interface</span> <span class="n">IMyOperation</span> <span class="p">:</span> <span class="n">IPipelineOperation</span><span class="p">&lt;</span><span class="n">MyApplicationContext</span><span class="p">&gt;</span> <span class="p">{</span> <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">MyOperation</span>
+    <span class="p">{</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="step-3-inherit-and-implement">
+<h3>Step 3: Inherit and Implement<a class="headerlink" href="#step-3-inherit-and-implement" title="Permalink to this headline">¶</a></h3>
+<p>Inherit from <code class="docutils literal notranslate"><span class="pre">BasePipelineOperation</span></code> and implement the <code class="docutils literal notranslate"><span class="pre">IMyOperation</span></code> marker interface.</p>
+<div class="highlight-csharp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">KnightMoves.Pipelines</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">KnightMoves.Pipelines.Interfaces</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">MyApplication.Operations</span>
+<span class="p">{</span>
+    <span class="c1">// Marker Interface</span>
+    <span class="k">public</span> <span class="k">interface</span> <span class="n">IMyOperation</span> <span class="p">:</span> <span class="n">IPipelineOperation</span><span class="p">&lt;</span><span class="n">MyApplicationContext</span><span class="p">&gt;</span> <span class="p">{</span> <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">MyOperation</span> <span class="p">:</span> <span class="n">BasePipelineOperation</span><span class="p">&lt;</span><span class="n">MyApplicationContext</span><span class="p">&gt;,</span> <span class="n">IMyOperation</span>
+    <span class="p">{</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="step-4-implement-operation-logic">
+<h3>Step 4: Implement Operation Logic<a class="headerlink" href="#step-4-implement-operation-logic" title="Permalink to this headline">¶</a></h3>
+<p>Implement the <code class="docutils literal notranslate"><span class="pre">IPipelineOperation&lt;TContext&gt;`</span></code>’s <code class="docutils literal notranslate"><span class="pre">`Execute(TContext)`</span></code> method.</p>
+<div class="highlight-csharp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">KnightMoves.Pipelines</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">KnightMoves.Pipelines.Interfaces</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">MyApplication.Operations</span>
+<span class="p">{</span>
+    <span class="c1">// Marker Interface</span>
+    <span class="k">public</span> <span class="k">interface</span> <span class="n">IMyOperation</span> <span class="p">:</span> <span class="n">IPipelineOperation</span><span class="p">&lt;</span><span class="n">MyApplicationContext</span><span class="p">&gt;</span> <span class="p">{</span> <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">MyOperation</span> <span class="p">:</span> <span class="n">BasePipelineOperation</span><span class="p">&lt;</span><span class="n">MyApplicationContext</span><span class="p">&gt;,</span> <span class="n">IMyOperation</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">Execute</span><span class="p">(</span><span class="n">MyApplicationContext</span> <span class="n">context</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// Logic goes here</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If your Operation requires that another Operation be executed before it in the pipeline, then this is an
+Operation-to-Operation dependency and you should add those dependencies to the <code class="docutils literal notranslate"><span class="pre">Dependencies</span></code> collection
+in the Operation’s constructor.</p>
+<p><a class="reference external" href="operation-dependencies.html">See the documentation for this here</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="using-the-pipeline-context">
+<h2>Using the Pipeline Context<a class="headerlink" href="#using-the-pipeline-context" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="successful">
+<h3>Successful<a class="headerlink" href="#successful" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="pipeline-context.html"><span class="doc">Pipeline Context</span></a> object contains a boolean property called <code class="docutils literal notranslate"><span class="pre">Successful</span></code> documented in the <a class="reference internal" href="pipeline-context.html"><span class="doc">Pipeline Context</span></a> page.
+You can examine this property to make a decision on whether or not to do something.</p>
+<div class="highlight-csharp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// removed outer code blocks for brevity</span>
+
+    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">Execute</span><span class="p">(</span><span class="n">MyApplicationContext</span> <span class="n">context</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(!</span><span class="n">context</span><span class="p">.</span><span class="n">Successful</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// Do nothing</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Logic goes here</span>
+    <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="endprocessing">
+<h3>EndProcessing<a class="headerlink" href="#endprocessing" title="Permalink to this headline">¶</a></h3>
+<p>You can cancel the execution of the rest of the pipeline by setting the <code class="docutils literal notranslate"><span class="pre">EndProcessing</span></code> property to true. The
+<a class="reference internal" href="pipeline-coordinator.html"><span class="doc">Pipeline Coordinator</span></a> will not execute any Operation in the pipeline if this is set to true.</p>
+<div class="highlight-csharp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// removed outer code blocks for brevity</span>
+
+    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">Execute</span><span class="p">(</span><span class="n">MyApplicationContext</span> <span class="n">context</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Logic here resulted in some critical failure so we terminate</span>
+        <span class="c1">// the execution of all other Operations after this</span>
+
+        <span class="n">context</span><span class="p">.</span><span class="n">EndProcessing</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+    <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="resultmessages">
+<h3>ResultMessages<a class="headerlink" href="#resultmessages" title="Permalink to this headline">¶</a></h3>
+<p>You can (and should) report the result of the Operation’s execution by putting a message in the <code class="docutils literal notranslate"><span class="pre">ResultMessages</span></code> collection.
+It can then be used at the end of the pipeline execution for logging and debugging.</p>
+<div class="highlight-csharp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// removed outer code blocks for brevity</span>
+
+    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">Execute</span><span class="p">(</span><span class="n">MyApplicationContext</span> <span class="n">context</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">okay</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+
+        <span class="c1">// Logic goes here and sets okay to false if something went wrong</span>
+
+        <span class="k">if</span><span class="p">(!</span><span class="n">okay</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">context</span><span class="p">.</span><span class="n">ResultMessages</span><span class="p">(</span><span class="s">&quot;MyOperation Failed!&quot;</span><span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">context</span><span class="p">.</span><span class="n">ResultMessages</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;MyOperation Successfully executed!&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>Later the <a class="reference internal" href="pipeline-context.html"><span class="doc">Pipeline Context</span></a> can be used for logging and debugging.</p>
+<div class="highlight-csharp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="c1">// ...</span>
+
+   <span class="n">_pipelineCoordinator</span>
+       <span class="p">.</span><span class="n">Execute</span><span class="p">&lt;</span><span class="n">IMyOperation</span><span class="p">&gt;()</span>
+       <span class="p">.</span><span class="n">Execute</span><span class="p">&lt;</span><span class="n">ISaveResults</span><span class="p">&gt;()</span>
+   <span class="p">;</span>
+
+   <span class="n">LogOperationResults</span><span class="p">(</span><span class="n">_pipelineCoordinator</span><span class="p">.</span><span class="n">Context</span><span class="p">.</span><span class="n">ResultMessages</span><span class="p">);</span>
+
+   <span class="c1">// ...</span>
+
+<span class="p">}</span>
+
+<span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">LogOperationResults</span><span class="p">(</span><span class="n">IList</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">results</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Log results here</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="exceptions">
+<h3>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h3>
+<p>If exceptions are caught in the Operation’s logic and you want to gracefully handle them in a try/catch block, then you can
+plant the exception in the <code class="docutils literal notranslate"><span class="pre">Exceptions</span></code> collection of the <a class="reference internal" href="pipeline-context.html"><span class="doc">Pipeline Context</span></a> for logging and debugging later.</p>
+<div class="highlight-csharp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// removed outer code blocks for brevity</span>
+
+    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">Execute</span><span class="p">(</span><span class="n">MyApplicationContext</span> <span class="n">context</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">try</span>
+        <span class="p">{</span>
+            <span class="c1">// Some logic goes here</span>
+        <span class="p">}</span>
+        <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// Doh! Exception!</span>
+            <span class="n">context</span><span class="p">.</span><span class="n">Exceptions</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">ex</span><span class="p">);</span>
+            <span class="n">context</span><span class="p">.</span><span class="n">EndProcessing</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+            <span class="n">context</span><span class="p">.</span><span class="n">ResultMessages</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;MyOperation Exception: &quot;</span> <span class="p">+</span> <span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Rest of Logic goes here</span>
+
+        <span class="n">context</span><span class="p">.</span><span class="n">ResultMessages</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;MyOperation Successfully executed!&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>Later the <a class="reference internal" href="pipeline-context.html"><span class="doc">Pipeline Context</span></a> can be used for logging and debugging.</p>
+<div class="highlight-csharp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="c1">// ...</span>
+
+   <span class="n">_pipelineCoordinator</span>
+       <span class="p">.</span><span class="n">Execute</span><span class="p">&lt;</span><span class="n">IMyOperation</span><span class="p">&gt;()</span>
+       <span class="p">.</span><span class="n">Execute</span><span class="p">&lt;</span><span class="n">ISaveResults</span><span class="p">&gt;()</span>
+   <span class="p">;</span>
+
+   <span class="n">LogExceptions</span><span class="p">(</span><span class="n">_pipelineCoordinator</span><span class="p">.</span><span class="n">Context</span><span class="p">.</span><span class="n">Exceptions</span><span class="p">);</span>
+
+   <span class="c1">// ...</span>
+
+<span class="p">}</span>
+
+<span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">LogExceptions</span><span class="p">(</span><span class="n">IList</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">results</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Log results here</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="async-operations.html" class="btn btn-neutral float-right" title="Async Operations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pipeline-coordinator.html" class="btn btn-neutral float-left" title="Pipeline Coordinator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Ricardo Pena.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

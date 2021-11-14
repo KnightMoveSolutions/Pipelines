@@ -1,0 +1,340 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Operation Dependencies &mdash; KnightMoves.Pipelines 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Logging and Error Handling" href="logging-and-error-handling.html" />
+    <link rel="prev" title="Async Operations" href="async-operations.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> KnightMoves.Pipelines
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how-it-works.html">How It Works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline-context.html">Pipeline Context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline-coordinator.html">Pipeline Coordinator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operations.html">Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async-operations.html">Async Operations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Operation Dependencies</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#operation-dependency-resolution">Operation Dependency Resolution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="logging-and-error-handling.html">Logging and Error Handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multiple-operation-implementations.html">Multiple Operation Implementations</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">KnightMoves.Pipelines</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Operation Dependencies</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/operation-dependencies.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="operation-dependencies">
+<h1>Operation Dependencies<a class="headerlink" href="#operation-dependencies" title="Permalink to this headline">¶</a></h1>
+<p>As your pipeline grows and you add more steps to the logic in the form of <a class="reference internal" href="operations.html"><span class="doc">Operations</span></a> and <a class="reference internal" href="async-operations.html"><span class="doc">Async Operations</span></a>
+you may encounter situations where new business requirements must be implemented.</p>
+<p>Implementing new requirements in the form of new Operations will require you to place the execution of the newly developed
+Operation somewhere in the pipeline sequence. Sometimes the implementation of new requirements will require the moving of
+existing Operations up or down in the pipeline order. While this re-ordering of Operations is very easy when using this
+framework, it gives rise to the following errors.</p>
+<ul class="simple">
+<li><p>Moving an existing Operation up in the pipeline may cause you to place it <strong>above</strong> another Operation that is supposed to
+be executed before it</p></li>
+<li><p>Moving an existing Operation down in the pipeline may cause you to place it <strong>below</strong> another Operation that needs to be
+executed before it</p></li>
+<li><p>A new Operation can be added to the pipeline above another Operation that needs to be executed before it</p></li>
+</ul>
+<p>When one Operation expects another Operation to have been executed before it, then this constitutes an Operation-to-Operation
+dependency. Over time, it becomes difficult to ascertain how far up or down in the pipeline is safe to execute an Operation.
+When an Operation expects multiple Operations to have been executed before it, then it gets even more difficult to manage the
+order of Operations in the pipeline.</p>
+<div class="section" id="operation-dependency-resolution">
+<h2>Operation Dependency Resolution<a class="headerlink" href="#operation-dependency-resolution" title="Permalink to this headline">¶</a></h2>
+<p>When creating an Operation, you must ascertain what other Operation(s) if any must have been executed before it. If one or more
+Operations must execute before the current Operation, then you should mark those dependencies by adding the Operation marker
+interface types to the Operation’s <code class="docutils literal notranslate"><span class="pre">Dependencies</span></code> collection in its constructor.</p>
+<p>The code below illustrates this.</p>
+<div class="highlight-csharp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">KnightMoves.Pipelines</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">KnightMoves.Pipelines.Interfaces</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">MyApplication.Operations</span>
+<span class="p">{</span>
+    <span class="c1">// Marker Interface</span>
+    <span class="k">public</span> <span class="k">interface</span> <span class="n">IFilterCustomersOperations</span> <span class="p">:</span> <span class="n">IPipelineOperation</span><span class="p">&lt;</span><span class="n">MyApplicationContext</span><span class="p">&gt;</span> <span class="p">{</span> <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">FilterCustomersOperation</span> <span class="p">:</span> <span class="n">BasePipelineOperation</span><span class="p">&lt;</span><span class="n">MyApplicationContext</span><span class="p">&gt;,</span> <span class="n">IFilterCustomersOperations</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">Execute</span><span class="p">(</span><span class="n">MyApplicationContext</span> <span class="n">context</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// In order for this to work, some other Operation must have been executed</span>
+            <span class="c1">// to fetch the Customers and plant them in the Context.Customers collection.</span>
+            <span class="c1">// If the Customers collection has not been initialized and/or populated, then</span>
+            <span class="c1">// this code will break</span>
+
+            <span class="n">context</span><span class="p">.</span><span class="n">EmailCampaignCustomers</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Customers</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span> <span class="n">c</span><span class="p">.</span><span class="n">Region</span> <span class="p">==</span> <span class="n">Regions</span><span class="p">.</span><span class="n">Midwest</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>In order to safely place this Operation somewhere in the pipeline, you can mark its dependencies like so.</p>
+<div class="highlight-csharp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">KnightMoves.Pipelines</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">KnightMoves.Pipelines.Interfaces</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">MyApplication.Operations</span>
+<span class="p">{</span>
+    <span class="c1">// Marker Interface</span>
+    <span class="k">public</span> <span class="k">interface</span> <span class="n">IFilterCustomersOperations</span> <span class="p">:</span> <span class="n">IPipelineOperation</span><span class="p">&lt;</span><span class="n">MyApplicationContext</span><span class="p">&gt;</span> <span class="p">{</span> <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">FilterCustomersOperation</span> <span class="p">:</span> <span class="n">BasePipelineOperation</span><span class="p">&lt;</span><span class="n">MyApplicationContext</span><span class="p">&gt;,</span> <span class="n">IFilterCustomersOperations</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="nf">FilterCustomersOperation</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="c1">// Dependency added here</span>
+            <span class="n">Dependencies</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">IFetchCustomersOperationAsync</span><span class="p">));</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">Execute</span><span class="p">(</span><span class="n">MyApplicationContext</span> <span class="n">context</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">context</span><span class="p">.</span><span class="n">EmailCampaignCustomers</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Customers</span><span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span> <span class="n">c</span><span class="p">.</span><span class="n">Region</span> <span class="p">==</span> <span class="n">Regions</span><span class="p">.</span><span class="n">Midwest</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>Here you are notifying the <a class="reference internal" href="pipeline-coordinator.html"><span class="doc">Pipeline Coordinator</span></a> that this Operation cannot be placed above <code class="docutils literal notranslate"><span class="pre">IFetchCustomersOperationAsync</span></code>
+in the pipeline order. If this Operation is moved above <code class="docutils literal notranslate"><span class="pre">IFetchCustomersOperationAsync</span></code>, then the <a class="reference internal" href="pipeline-coordinator.html"><span class="doc">Pipeline Coordinator</span></a>
+will throw a <code class="docutils literal notranslate"><span class="pre">OperationDependencyNotExecutedException</span></code> at runtime.</p>
+<p>The unit test for the class that uses the <a class="reference internal" href="pipeline-coordinator.html"><span class="doc">Pipeline Coordinator</span></a> should throw this exception or it will be thrown the very
+first time you run the application. In this way, you are guaranteed the safety of being notified that an Operation-to-Operation
+dependency was not satisfied and you will have to resolve the dependency by moving one of the Operations up or down to ensure
+dependent Operations are executed first.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="logging-and-error-handling.html" class="btn btn-neutral float-right" title="Logging and Error Handling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="async-operations.html" class="btn btn-neutral float-left" title="Async Operations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Ricardo Pena.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -2,11 +2,37 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>A lightweight framework for creating custom pipelines</Description>
+    <PackageProjectUrl>https://github.com/KnightMoveSolutions/Pipelines</PackageProjectUrl>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <Copyright>Copyright 2021</Copyright>
+    <PackageTags>pipeline</PackageTags>
+    <Authors>Ricardo Pena</Authors>
+    <Company>Knight Move Solutions, Inc.</Company>
+    <PackageIcon>knigh_move_solutions_logo.png</PackageIcon>
+    <PackageLicenseFile>License.txt</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/KnightMoveSolutions/Pipelines</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>Initial version 1.0.0 package</PackageReleaseNotes>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Hierarchical\License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\knigh_move_solutions_logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

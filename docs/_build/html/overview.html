@@ -1,0 +1,413 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Overview &mdash; KnightMoves.Pipelines 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Quick Start" href="quick-start.html" />
+    <link rel="prev" title="Welcome to KnightMoves.Pipelines documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> KnightMoves.Pipelines
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-it">What is it?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-problem-does-it-solve">What problem does it solve?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#when-do-i-use-it">When do I use it?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-next">What Next?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how-it-works.html">How It Works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline-context.html">Pipeline Context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline-coordinator.html">Pipeline Coordinator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operations.html">Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async-operations.html">Async Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operation-dependencies.html">Operation Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging-and-error-handling.html">Logging and Error Handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multiple-operation-implementations.html">Multiple Operation Implementations</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">KnightMoves.Pipelines</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Overview</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/overview.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-it">
+<h2>What is it?<a class="headerlink" href="#what-is-it" title="Permalink to this headline">¶</a></h2>
+<p>The Pipelines library is a framework for decomposing and executing processes
+(i.e. PipelineOperations) that are highly dependent on each other and which must be
+executed in a particular order.</p>
+</div>
+<div class="section" id="what-problem-does-it-solve">
+<h2>What problem does it solve?<a class="headerlink" href="#what-problem-does-it-solve" title="Permalink to this headline">¶</a></h2>
+<p>This framework simplifies the creation of procedural code that is made up of many steps
+that involve a combination of reaching out to other APIs, pulling data from a database,
+saving data to a database, calculations, validation logic, sorting/grouping, data
+transformations, and crafting of the output format.</p>
+<p>Without a framework like this, inevitably the code becomes a monolith with a mix of
+steps executing the types of logic above, exception handling throughout, logging
+interweaved with the business logic, if/else blocks, async operations, and early
+returns.</p>
+<p>This framework makes it easy to separate (i.e. decompose) portions of logic (i.e. steps in the procedure) into their own classes so that each step adheres to the Single
+Responsibility Principle and can be independently managed.</p>
+<p>To illustrate, this framework allows you to go from this …</p>
+<div class="highlight-csharp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Customer</span><span class="p">&gt;</span> <span class="n">targetCustomers</span><span class="p">;</span>
+<span class="k">try</span>
+<span class="p">{</span>
+    <span class="n">targetCustomers</span> <span class="p">=</span> <span class="k">await</span> <span class="n">_customerApi</span><span class="p">.</span><span class="n">GetCustomersBySegment</span><span class="p">(</span><span class="n">segmentId</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">_logger</span><span class="p">.</span><span class="n">LogError</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="p">(</span><span class="n">targetCustomers</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">List</span><span class="p">&lt;</span><span class="n">Customer</span><span class="p">&gt;</span> <span class="n">validCustomers</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Customer</span><span class="p">&gt;();</span>
+
+<span class="n">targetCustomers</span><span class="p">.</span><span class="n">ToList</span><span class="p">().</span><span class="n">ForEach</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+     <span class="k">if</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">IsNullOrEmpty</span><span class="p">(</span><span class="n">c</span><span class="p">.</span><span class="n">FirstName</span><span class="p">))</span>
+         <span class="k">return</span><span class="p">;</span>
+
+     <span class="k">if</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">IsNullOrEmpty</span><span class="p">(</span><span class="n">c</span><span class="p">.</span><span class="n">LastName</span><span class="p">))</span>
+         <span class="k">return</span><span class="p">;</span>
+
+     <span class="k">if</span><span class="p">(!</span><span class="n">IsValidEmailAddress</span><span class="p">(</span><span class="n">c</span><span class="p">.</span><span class="n">Email</span><span class="p">))</span>
+         <span class="k">return</span><span class="p">;</span>
+
+     <span class="n">validCustomers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">const</span> <span class="kt">int</span> <span class="n">PURCHASE_HISTORY_MONTHS</span> <span class="p">=</span> <span class="m">3</span><span class="p">;</span>
+
+<span class="n">List</span><span class="p">&lt;</span><span class="n">EmailCampaignTarget</span><span class="p">&gt;</span> <span class="n">emailCampaignTargets</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">EmailCampaignTarget</span><span class="p">&gt;();</span>
+
+<span class="n">validCustomers</span><span class="p">.</span><span class="n">ForEach</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+     <span class="kt">var</span> <span class="n">purchasedProducts</span> <span class="p">=</span> <span class="n">_purchaseHistoryRepo</span><span class="p">.</span><span class="n">GetPurchaseHistory</span><span class="p">(</span><span class="n">PURCHASE_HISTORY_MONTHS</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">Id</span><span class="p">);</span>
+
+     <span class="k">if</span><span class="p">(</span><span class="n">purchasedProducts</span><span class="p">.</span><span class="n">Any</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Category</span> <span class="p">==</span> <span class="n">productCategory</span><span class="p">))</span>
+     <span class="p">{</span>
+         <span class="n">emailCampaignTargets</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">EmailCampaignTarget</span>
+         <span class="p">{</span>
+             <span class="n">CustomerId</span> <span class="p">=</span> <span class="n">c</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span>
+             <span class="n">FirstName</span> <span class="p">=</span> <span class="n">c</span><span class="p">.</span><span class="n">FirstName</span><span class="p">,</span>
+             <span class="n">LastName</span> <span class="p">=</span> <span class="n">c</span><span class="p">.</span><span class="n">LastName</span><span class="p">,</span>
+             <span class="n">Email</span> <span class="p">=</span> <span class="n">c</span><span class="p">.</span><span class="n">Email</span>
+         <span class="p">});</span>
+     <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">return</span> <span class="n">emailCampaignTargets</span><span class="p">;</span>
+</pre></div>
+</td></tr></table></div>
+<p>… to this …</p>
+<div class="highlight-csharp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">_pipelineCoordinator</span><span class="p">.</span><span class="n">Context</span><span class="p">.</span><span class="n">SegmentId</span> <span class="p">=</span> <span class="n">segmentId</span><span class="p">;</span>
+<span class="n">_pipelineCoordinator</span><span class="p">.</span><span class="n">Context</span><span class="p">.</span><span class="n">ProductCategory</span> <span class="p">=</span> <span class="n">productCategory</span><span class="p">;</span>
+
+<span class="n">_pipelineCoordinator</span>
+     <span class="p">.</span><span class="n">ExecuteAsync</span><span class="p">&lt;</span><span class="n">IGetCustomersBySegmentOperationAsync</span><span class="p">&gt;()</span>
+     <span class="p">.</span><span class="n">Execute</span><span class="p">&lt;</span><span class="n">IValidateCustomersOperation</span><span class="p">&gt;()</span>
+     <span class="p">.</span><span class="n">ExecuteAsync</span><span class="p">&lt;</span><span class="n">IFilterCustomersByPurchaseHistoryOperationAsync</span><span class="p">&gt;()</span>
+     <span class="p">.</span><span class="n">Execute</span><span class="p">&lt;</span><span class="n">IMapCustomersToEmailCampaignOperation</span><span class="p">&gt;()</span>
+<span class="p">;</span>
+
+<span class="k">if</span><span class="p">(!</span><span class="n">_pipelineCoordinator</span><span class="p">.</span><span class="n">Context</span><span class="p">.</span><span class="n">Successful</span><span class="p">)</span>
+<span class="p">{</span>
+     <span class="kt">var</span> <span class="n">errorMsg</span> <span class="p">=</span> <span class="n">GetErrorMsg</span><span class="p">(</span><span class="n">_pipelineCoordinator</span><span class="p">.</span><span class="n">Context</span><span class="p">.</span><span class="n">Exceptions</span><span class="p">);</span>
+     <span class="n">_logger</span><span class="p">.</span><span class="n">LogError</span><span class="p">(</span><span class="n">errorMsg</span><span class="p">);</span>
+     <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">return</span> <span class="n">_pipelineCoordinator</span><span class="p">.</span><span class="n">Context</span><span class="p">.</span><span class="n">EmailCampaignTargets</span><span class="p">;</span>
+</pre></div>
+</td></tr></table></div>
+<p>You can see above that the monolithic logic has been decomposed into four steps executed by the
+<code class="docutils literal notranslate"><span class="pre">_pipelineCoordinator</span></code>. This simplifies the code and promotes the Single Responsibility Principle.
+At a glance you can see what is happening where the manager executes the following operations.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">IGetCustomersBySegmentOperationAsync</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IValidateCustomersOperation</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IFilterCustomersByPurchaseHistoryOperationAsync</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IMapCustomersToEmailCampaignOperation</span></code></p></li>
+</ul>
+<p>Non-Async operations have the suffix “Operation” and Async Operations have the suffix “OperationAsync”.
+This is just a (recommended) naming convention that also makes the code self-documenting.</p>
+</div>
+<div class="section" id="when-do-i-use-it">
+<h2>When do I use it?<a class="headerlink" href="#when-do-i-use-it" title="Permalink to this headline">¶</a></h2>
+<p>Anytime you have code that coordinates many steps of logic that are dependent on a particular sequence
+and involves a mix of operations such as fetching data from APIs, reading/writing to a database, validation,
+calculations, etc. AND it begins to form a monolithic procedural code block of significant size, then
+it is a candidate for decomposing into separate operations and you will need some way to coordinate
+those operations. That is when this framework becomes useful and you may consider using it.</p>
+</div>
+<div class="section" id="what-next">
+<h2>What Next?<a class="headerlink" href="#what-next" title="Permalink to this headline">¶</a></h2>
+<p>If you are familiar with this library and need a reminder on the steps necessary to implement
+or if you just want to get crackin’ then go to the <a class="reference internal" href="quick-start.html"><span class="doc">Quick Start</span></a></p>
+<p>If you want to dig under the hood of the framework then go examine <a class="reference internal" href="how-it-works.html"><span class="doc">How It Works</span></a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="quick-start.html" class="btn btn-neutral float-right" title="Quick Start" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to KnightMoves.Pipelines documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Ricardo Pena.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
