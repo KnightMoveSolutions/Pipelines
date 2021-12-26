@@ -10,13 +10,14 @@
     <PackageTags>pipeline</PackageTags>
     <Authors>Ricardo Pena</Authors>
     <Company>Knight Move Solutions, Inc.</Company>
-    <PackageIcon>knigh_move_solutions_logo.png</PackageIcon>
+    <PackageIcon>knight_move_solutions_logo.png</PackageIcon>
     <PackageLicenseFile>License.txt</PackageLicenseFile>
     <RepositoryUrl>https://github.com/KnightMoveSolutions/Pipelines</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>Initial version 1.0.0 package</PackageReleaseNotes>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,9 +30,10 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="..\knigh_move_solutions_logo.png">
+    <None Include="knight_move_solutions_logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
