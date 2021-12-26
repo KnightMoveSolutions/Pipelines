@@ -49,13 +49,16 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search"  style="background: #0255a3" >
           
 
           
-            <a href="index.html" class="icon icon-home"> KnightMoves.Pipelines
+            <a href="index.html">
           
 
+          
+            
+            <img src="_static/knight_move_solutions_pipelines_logo.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -227,6 +230,31 @@ can inherit from for convenience and it looks like this.</p>
 <div class="section" id="creating-your-pipelinecontext">
 <h2>Creating Your PipelineContext<a class="headerlink" href="#creating-your-pipelinecontext" title="Permalink to this headline">¶</a></h2>
 <p>With the base implementation provided above you can create your own context object very easily.</p>
+<div class="highlight-csharp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">KnightMoves.Pipelines</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">KnightMoves.Pipelines.Interfaces</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">MyApplicationContext</span> <span class="p">:</span> <span class="n">PipelineContext</span><span class="p">,</span> <span class="n">IPipelineContext</span>
+<span class="p">{</span>
+    <span class="c1">// Add application-specific properties here such as the examples below</span>
+
+    <span class="k">public</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Customer</span><span class="p">&gt;</span> <span class="n">Customers</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Customer</span><span class="p">&gt;</span> <span class="n">EmailCampaignRecipients</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="c1">// ... etc.</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>It might seem redundant to add the IPipelineContext interface to the class above but this is necessary

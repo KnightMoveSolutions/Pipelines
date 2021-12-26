@@ -62,6 +62,7 @@ With the base implementation provided above you can create your own context obje
 
 .. code-block:: csharp
    :linenos:
+   
    using KnightMoves.Pipelines;
    using KnightMoves.Pipelines.Interfaces;
    

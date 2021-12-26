@@ -16,8 +16,16 @@
 
 import sphinx_rtd_theme
 
+html_theme_options = {
+    'logo_only': True,
+    'style_nav_header_background': '#0255a3'
+}
+
+pygments_style = 'vs'
+
 # -- Project information -----------------------------------------------------
 
+html_logo = 'knight_move_solutions_pipelines_logo.png'
 project = 'KnightMoves.Pipelines'
 copyright = '2021, Ricardo Pena'
 author = 'Ricardo Pena'
