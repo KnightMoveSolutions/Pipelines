@@ -75,7 +75,7 @@ tests that return a boolean, data transformations, etc.
 
    If the logic of an Operation requires file IO, gets/posts from/to a REST API, network IO, reads/writes from/to a database, etc. 
    then the Operation should be asynchronous and executed using either ``ExecuteAsync<TOperation>`` or ``AddAsyncOperation<TOperation>`` 
-   with ``WhenAll()`` methods to documented below. 
+   with ``WhenAll()`` methods, which are documented below. 
    
 to execute a non-async Operation using the ``Execute<TOperation>`` method, the logic of the Operation must be implemented in a class 
 that implements the ``IOperation<TContext>`` interface or better yet, inherits from ``BasePipelineOperation<TContext>``, which 
@@ -156,7 +156,7 @@ AddAsyncOperation<TOperation>()
 
 If you create multiple async Operations that implement the ``IPipelineOperationAsync<TContext>`` interface or inherit from 
 ``BasePipelineOperationAsync<TContext>`` that can be executed simultaneously, you can do so by adding each async Operation to 
-the Pipeline Coordinator ``OperationTasks`` collection using the ``AddAsyncOperation<TContext>`` method to create a liste of 
+the Pipeline Coordinator ``OperationTasks`` collection using the ``AddAsyncOperation<TContext>`` method to create a list of 
 async Operations to be executed asynchronously. Once you have added all of the desired async Operations using this method, you 
 can execute all of them at once by calling the ``WhenAll()`` method. 
 

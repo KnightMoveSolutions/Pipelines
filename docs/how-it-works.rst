@@ -81,7 +81,7 @@ The diagram above depicts the code below.
    // Do something with the results in the state object
    return _pipelineCoordinator.Context.Stuff;
    
-With this framework you can mis synchronous Operation with asynchronous Operations if some things are dependent on others but parts
+With this framework you can mix synchronous Operation with asynchronous Operations if some things are dependent on others but parts
 of the application logic can be combined asynchronously.
 
 .. code-block:: csharp 

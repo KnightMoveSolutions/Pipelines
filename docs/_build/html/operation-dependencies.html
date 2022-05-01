@@ -284,7 +284,7 @@ interface types to the Operation’s <code class="docutils literal notranslate">
 </td></tr></table></div>
 <p>Here you are notifying the <a class="reference internal" href="pipeline-coordinator.html"><span class="doc">Pipeline Coordinator</span></a> that this Operation cannot be placed above <code class="docutils literal notranslate"><span class="pre">IFetchCustomersOperationAsync</span></code>
 in the pipeline order. If this Operation is moved above <code class="docutils literal notranslate"><span class="pre">IFetchCustomersOperationAsync</span></code>, then the <a class="reference internal" href="pipeline-coordinator.html"><span class="doc">Pipeline Coordinator</span></a>
-will throw a <code class="docutils literal notranslate"><span class="pre">OperationDependencyNotExecutedException</span></code> at runtime.</p>
+will throw an <code class="docutils literal notranslate"><span class="pre">OperationDependencyNotExecutedException</span></code> at runtime.</p>
 <p>The unit test for the class that uses the <a class="reference internal" href="pipeline-coordinator.html"><span class="doc">Pipeline Coordinator</span></a> should throw this exception or it will be thrown the very
 first time you run the application. In this way, you are guaranteed the safety of being notified that an Operation-to-Operation
 dependency was not satisfied and you will have to resolve the dependency by moving one of the Operations up or down to ensure

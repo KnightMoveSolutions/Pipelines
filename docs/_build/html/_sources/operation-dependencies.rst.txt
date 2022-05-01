@@ -85,7 +85,7 @@ In order to safely place this Operation somewhere in the pipeline, you can mark 
    
 Here you are notifying the :doc:`pipeline-coordinator` that this Operation cannot be placed above ``IFetchCustomersOperationAsync`` 
 in the pipeline order. If this Operation is moved above ``IFetchCustomersOperationAsync``, then the :doc:`pipeline-coordinator`
-will throw a ``OperationDependencyNotExecutedException`` at runtime. 
+will throw an ``OperationDependencyNotExecutedException`` at runtime. 
 
 The unit test for the class that uses the :doc:`pipeline-coordinator` should throw this exception or it will be thrown the very 
 first time you run the application. In this way, you are guaranteed the safety of being notified that an Operation-to-Operation 

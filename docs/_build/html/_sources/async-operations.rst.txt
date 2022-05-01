@@ -15,7 +15,7 @@ of Operation to implement logic that merits asynchronous calls such as
    Not everything should be an asynchronous operation. If it truly doesn't merit the added complexity of an asynchronous call 
    (e.g. simple data validation) then `create a regular Operation <operations.html>`_ instead.
    
-To create a async Operation follow the steps below.
+To create an async Operation follow the steps below.
 
 Steps to Create an Operation
 ----------------------------

@@ -256,7 +256,7 @@ tests that return a boolean, data transformations, etc.</p>
 <p class="admonition-title">Tip</p>
 <p>If the logic of an Operation requires file IO, gets/posts from/to a REST API, network IO, reads/writes from/to a database, etc.
 then the Operation should be asynchronous and executed using either <code class="docutils literal notranslate"><span class="pre">ExecuteAsync&lt;TOperation&gt;</span></code> or <code class="docutils literal notranslate"><span class="pre">AddAsyncOperation&lt;TOperation&gt;</span></code>
-with <code class="docutils literal notranslate"><span class="pre">WhenAll()</span></code> methods to documented below.</p>
+with <code class="docutils literal notranslate"><span class="pre">WhenAll()</span></code> methods, which are documented below.</p>
 </div>
 <p>to execute a non-async Operation using the <code class="docutils literal notranslate"><span class="pre">Execute&lt;TOperation&gt;</span></code> method, the logic of the Operation must be implemented in a class
 that implements the <code class="docutils literal notranslate"><span class="pre">IOperation&lt;TContext&gt;</span></code> interface or better yet, inherits from <code class="docutils literal notranslate"><span class="pre">BasePipelineOperation&lt;TContext&gt;</span></code>, which
@@ -328,7 +328,7 @@ use the <code class="docutils literal notranslate"><span class="pre">AddAsyncOpe
 <h2>AddAsyncOperation&lt;TOperation&gt;()<a class="headerlink" href="#addasyncoperation-toperation" title="Permalink to this headline">¶</a></h2>
 <p>If you create multiple async Operations that implement the <code class="docutils literal notranslate"><span class="pre">IPipelineOperationAsync&lt;TContext&gt;</span></code> interface or inherit from
 <code class="docutils literal notranslate"><span class="pre">BasePipelineOperationAsync&lt;TContext&gt;</span></code> that can be executed simultaneously, you can do so by adding each async Operation to
-the Pipeline Coordinator <code class="docutils literal notranslate"><span class="pre">OperationTasks</span></code> collection using the <code class="docutils literal notranslate"><span class="pre">AddAsyncOperation&lt;TContext&gt;</span></code> method to create a liste of
+the Pipeline Coordinator <code class="docutils literal notranslate"><span class="pre">OperationTasks</span></code> collection using the <code class="docutils literal notranslate"><span class="pre">AddAsyncOperation&lt;TContext&gt;</span></code> method to create a list of
 async Operations to be executed asynchronously. Once you have added all of the desired async Operations using this method, you
 can execute all of them at once by calling the <code class="docutils literal notranslate"><span class="pre">WhenAll()</span></code> method.</p>
 <p>The diagram below shows this flow of execution.</p>

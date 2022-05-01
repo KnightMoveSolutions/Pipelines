@@ -176,14 +176,14 @@ state object, which contains the following two properties.</p>
 place for logging and exception handling.</p>
 <p>the <a class="reference internal" href="pipeline-coordinator.html"><span class="doc">Pipeline Coordinator</span></a> does its best to gracefully handle any exceptions thrown or not caught by the Operations you
 create. For <a class="reference internal" href="async-operations.html"><span class="doc">Async Operations</span></a> it is more difficult to handle those so it is always best to include try/catch blocks in
-the <a class="reference external" href="async-operations.html#step-4-implement-operation-logic">ExecuteAsync() and CompletedTaskCallback()</a> methods of an
+the <a class="reference external" href="async-operations.html#step-4-implement-operation-logic">ExecuteAsync() and CompletedTaskCallback()</a> methods of any
 <a class="reference internal" href="async-operations.html"><span class="doc">Async Operations</span></a>. If you handle exceptions yourself you can add the exception to the <cite>Exceptions</cite> property of the
 application’s <a class="reference internal" href="pipeline-context.html"><span class="doc">Pipeline Context</span></a> object and then handle its logging after the pipeline is finished executing. This way,
 you don’t have to inject and interweave logging code in all of the Operations.</p>
 <p>However, there is nothing in the Pipelines framework that forces you to use its logging and exception handling properties.
 You are free to implement logging everywhere, use an Aspect-Oriented Programming approach, or not log anything at all.</p>
 <p>If the <a class="reference internal" href="pipeline-coordinator.html"><span class="doc">Pipeline Coordinator</span></a> catches an unhandled exception thrown in any of the Operations executed in the pipeline,
-then it will add it to the :doc:’pipeline-context`’s <code class="docutils literal notranslate"><span class="pre">Exceptions</span></code> collection and set the <code class="docutils literal notranslate"><span class="pre">Successful</span></code> property to
+then it will add it to the <a class="reference internal" href="pipeline-context.html"><span class="doc">Pipeline Context</span></a>’s <code class="docutils literal notranslate"><span class="pre">Exceptions</span></code> collection and set the <code class="docutils literal notranslate"><span class="pre">Successful</span></code> property to
 <code class="docutils literal notranslate"><span class="pre">false</span></code> for you.</p>
 <p>The <a class="reference internal" href="pipeline-coordinator.html"><span class="doc">Pipeline Coordinator</span></a> provides no logging capabilities whatsoever. You will have to log before the pipeline
 executes, after the pipeline executes, and/or within the Operations themselves if you so choose.</p>
