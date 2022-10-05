@@ -170,7 +170,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="pipeline-context">
+  <p><a class="reference external" href="https://docs.knightmovesolutions.com">Documentation Home</a></p>
+<div class="section" id="pipeline-context">
 <h1>Pipeline Context<a class="headerlink" href="#pipeline-context" title="Permalink to this headline">¶</a></h1>
 <p>The Pipeline Context is the state object that is passed to each Operation in the Pipeline. The logic of each Operation
 can then use the context state object to read data in it and write data to it in the course of its processing.</p>
@@ -217,7 +218,7 @@ can inherit from for convenience and it looks like this.</p>
 <span class="normal">4</span>
 <span class="normal">5</span>
 <span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="n">abstrace</span> <span class="k">class</span> <span class="nc">PipelineContext</span> <span class="p">:</span> <span class="n">IPipelineContext</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">abstract</span> <span class="k">class</span> <span class="nc">PipelineContext</span> <span class="p">:</span> <span class="n">IPipelineContext</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="kt">bool</span> <span class="n">Successful</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
     <span class="k">public</span> <span class="kt">bool</span> <span class="n">EndProcessing</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>

@@ -1,3 +1,5 @@
+`Documentation Home <https://docs.knightmovesolutions.com>`_
+
 ======================
 Operation Dependencies
 ======================
@@ -13,7 +15,7 @@ framework, it gives rise to the following errors.
 - Moving an existing Operation up in the pipeline may cause you to place it **above** another Operation that is supposed to 
   be executed before it 
 - Moving an existing Operation down in the pipeline may cause you to place it **below** another Operation that needs to be 
-  executed before it 
+  executed after it 
 - A new Operation can be added to the pipeline above another Operation that needs to be executed before it 
 
 When one Operation expects another Operation to have been executed before it, then this constitutes an Operation-to-Operation

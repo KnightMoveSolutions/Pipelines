@@ -181,7 +181,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="operations">
+  <p><a class="reference external" href="https://docs.knightmovesolutions.com">Documentation Home</a></p>
+<div class="section" id="operations">
 <h1>Operations<a class="headerlink" href="#operations" title="Permalink to this headline">¶</a></h1>
 <p>Operations are where the logic of the pipeline reside. Here we will be discussing non-async Operations.
 You should create this type of Operation to implement logic that does not do anything that would merit
@@ -418,7 +419,7 @@ It can then be used at the end of the pipeline execution for logging and debuggi
 
         <span class="k">if</span><span class="p">(!</span><span class="n">okay</span><span class="p">)</span>
         <span class="p">{</span>
-            <span class="n">context</span><span class="p">.</span><span class="n">ResultMessages</span><span class="p">(</span><span class="s">&quot;MyOperation Failed!&quot;</span><span class="p">);</span>
+            <span class="n">context</span><span class="p">.</span><span class="n">ResultMessages</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;MyOperation Failed!&quot;</span><span class="p">);</span>
             <span class="k">return</span><span class="p">;</span>
         <span class="p">}</span>
 
@@ -548,7 +549,7 @@ plant the exception in the <code class="docutils literal notranslate"><span clas
 
 <span class="p">}</span>
 
-<span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">LogExceptions</span><span class="p">(</span><span class="n">IList</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">results</span><span class="p">)</span>
+<span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">LogExceptions</span><span class="p">(</span><span class="n">IList</span><span class="p">&lt;</span><span class="n">Exception</span><span class="p">&gt;</span> <span class="n">results</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="c1">// Log results here</span>
 <span class="p">}</span>

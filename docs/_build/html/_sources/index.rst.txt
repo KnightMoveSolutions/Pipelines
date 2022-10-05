@@ -3,6 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+`Documentation Home <https://docs.knightmovesolutions.com>`_
+
 Welcome to KnightMoves.Pipelines documentation!
 =================================================
 
@@ -20,9 +22,4 @@ Welcome to KnightMoves.Pipelines documentation!
    logging-and-error-handling
    multiple-operation-implementations
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+`Back to Docs Home <https://docs.knightmovesolutions.com>`_

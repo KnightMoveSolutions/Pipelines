@@ -180,7 +180,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="quick-start">
+  <p><a class="reference external" href="https://docs.knightmovesolutions.com">Documentation Home</a></p>
+<div class="section" id="quick-start">
 <h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="step-1-create-the-context">
 <h2>Step 1: Create the Context<a class="headerlink" href="#step-1-create-the-context" title="Permalink to this headline">¶</a></h2>
@@ -233,8 +234,8 @@ and passes them to the base. Nothing further is required with those collections.
 <span class="k">public</span> <span class="k">class</span> <span class="nc">MyPipelineCoordinator</span> <span class="p">:</span> <span class="n">BasePipelineCoordinator</span><span class="p">&lt;</span><span class="n">MyApplicationContext</span><span class="p">&gt;</span>
 <span class="p">{</span>
      <span class="k">public</span> <span class="nf">MyPipelineCoordinator</span><span class="p">(</span>
-         <span class="n">IReadOnlyDictionary</span><span class="p">&lt;</span><span class="n">Type</span><span class="p">,</span> <span class="n">IPipelineOperation</span><span class="p">&lt;</span><span class="n">MyApplicationContext</span><span class="p">&gt;</span> <span class="n">operations</span><span class="p">,</span>
-         <span class="n">IReadOnlyDictionary</span><span class="p">&lt;</span><span class="n">Type</span><span class="p">,</span> <span class="n">IPipelineContextAsync</span><span class="p">&lt;</span><span class="n">MyApplicationContext</span><span class="p">&gt;</span> <span class="n">asyncOperations</span>
+         <span class="n">IReadOnlyDictionary</span><span class="p">&lt;</span><span class="n">Type</span><span class="p">,</span> <span class="n">IPipelineOperation</span><span class="p">&lt;</span><span class="n">MyApplicationContext</span><span class="p">&gt;&gt;</span> <span class="n">operations</span><span class="p">,</span>
+         <span class="n">IReadOnlyDictionary</span><span class="p">&lt;</span><span class="n">Type</span><span class="p">,</span> <span class="n">IPipelineContextAsync</span><span class="p">&lt;</span><span class="n">MyApplicationContext</span><span class="p">&gt;&gt;</span> <span class="n">asyncOperations</span>
      <span class="p">)</span>
          <span class="p">:</span><span class="k">base</span><span class="p">(</span><span class="n">operations</span><span class="p">,</span> <span class="n">asyncOperations</span><span class="p">)</span>
      <span class="p">{</span>

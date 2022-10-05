@@ -1,3 +1,5 @@
+`Documentation Home <https://docs.knightmovesolutions.com>`_
+
 ===========
 Quick Start
 ===========
@@ -46,8 +48,8 @@ provides the following:
    public class MyPipelineCoordinator : BasePipelineCoordinator<MyApplicationContext>
    {
         public MyPipelineCoordinator(
-            IReadOnlyDictionary<Type, IPipelineOperation<MyApplicationContext> operations,
-            IReadOnlyDictionary<Type, IPipelineContextAsync<MyApplicationContext> asyncOperations
+            IReadOnlyDictionary<Type, IPipelineOperation<MyApplicationContext>> operations,
+            IReadOnlyDictionary<Type, IPipelineContextAsync<MyApplicationContext>> asyncOperations
         )
             :base(operations, asyncOperations)
         {

@@ -171,7 +171,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="pipeline-coordinator">
+  <p><a class="reference external" href="https://docs.knightmovesolutions.com">Documentation Home</a></p>
+<div class="section" id="pipeline-coordinator">
 <h1>Pipeline Coordinator<a class="headerlink" href="#pipeline-coordinator" title="Permalink to this headline">¶</a></h1>
 <p>The Pipeline Coordinator is the core of the Pipelines framework. It serves as the pipeline builder and the coordinator
 of the execution of Operations in the pipeline passing the <a class="reference internal" href="pipeline-context.html"><span class="doc">Pipeline Context</span></a> state object to each of the
@@ -210,8 +211,8 @@ and the base <code class="docutils literal notranslate"><span class="pre">asyncO
 <span class="k">public</span> <span class="k">class</span> <span class="nc">MyPipelineCoordinator</span> <span class="p">:</span> <span class="n">BasePipelineCoordinator</span><span class="p">&lt;</span><span class="n">MyApplicationContext</span><span class="p">&gt;</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="nf">MyPipelineCoordinator</span><span class="p">(</span>
-        <span class="n">IReadOnlyDictionary</span><span class="p">&lt;</span><span class="n">Type</span><span class="p">,</span> <span class="n">IPipelineOperation</span><span class="p">&lt;</span><span class="n">MyApplicationContext</span><span class="p">&gt;</span> <span class="n">operations</span><span class="p">,</span>
-        <span class="n">IReadOnlyDictionary</span><span class="p">&lt;</span><span class="n">Type</span><span class="p">,</span> <span class="n">IPipelineOperationAsync</span><span class="p">&lt;</span><span class="n">MyApplicationContext</span><span class="p">&gt;</span> <span class="n">asyncOperations</span>
+        <span class="n">IReadOnlyDictionary</span><span class="p">&lt;</span><span class="n">Type</span><span class="p">,</span> <span class="n">IPipelineOperation</span><span class="p">&lt;</span><span class="n">MyApplicationContext</span><span class="p">&gt;&gt;</span> <span class="n">operations</span><span class="p">,</span>
+        <span class="n">IReadOnlyDictionary</span><span class="p">&lt;</span><span class="n">Type</span><span class="p">,</span> <span class="n">IPipelineOperationAsync</span><span class="p">&lt;</span><span class="n">MyApplicationContext</span><span class="p">&gt;&gt;</span> <span class="n">asyncOperations</span>
     <span class="p">)</span> <span class="p">:</span> <span class="k">base</span><span class="p">(</span><span class="n">operations</span><span class="p">,</span> <span class="n">asyncOperations</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">Context</span> <span class="p">=</span> <span class="k">new</span> <span class="n">MyApplicationContext</span><span class="p">();</span>

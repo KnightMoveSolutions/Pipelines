@@ -168,7 +168,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="operation-dependencies">
+  <p><a class="reference external" href="https://docs.knightmovesolutions.com">Documentation Home</a></p>
+<div class="section" id="operation-dependencies">
 <h1>Operation Dependencies<a class="headerlink" href="#operation-dependencies" title="Permalink to this headline">¶</a></h1>
 <p>As your pipeline grows and you add more steps to the logic in the form of <a class="reference internal" href="operations.html"><span class="doc">Operations</span></a> and <a class="reference internal" href="async-operations.html"><span class="doc">Async Operations</span></a>
 you may encounter situations where new business requirements must be implemented.</p>
@@ -180,7 +181,7 @@ framework, it gives rise to the following errors.</p>
 <li><p>Moving an existing Operation up in the pipeline may cause you to place it <strong>above</strong> another Operation that is supposed to
 be executed before it</p></li>
 <li><p>Moving an existing Operation down in the pipeline may cause you to place it <strong>below</strong> another Operation that needs to be
-executed before it</p></li>
+executed after it</p></li>
 <li><p>A new Operation can be added to the pipeline above another Operation that needs to be executed before it</p></li>
 </ul>
 <p>When one Operation expects another Operation to have been executed before it, then this constitutes an Operation-to-Operation

@@ -1,3 +1,5 @@
+`Documentation Home <https://docs.knightmovesolutions.com>`_
+
 ====================
 Pipeline Coordinator
 ====================
@@ -30,8 +32,8 @@ The example below shows how this is done for a Pipeline Coordinator called ``MyP
    public class MyPipelineCoordinator : BasePipelineCoordinator<MyApplicationContext>
    {
        public MyPipelineCoordinator(
-           IReadOnlyDictionary<Type, IPipelineOperation<MyApplicationContext> operations,
-           IReadOnlyDictionary<Type, IPipelineOperationAsync<MyApplicationContext> asyncOperations 
+           IReadOnlyDictionary<Type, IPipelineOperation<MyApplicationContext>> operations,
+           IReadOnlyDictionary<Type, IPipelineOperationAsync<MyApplicationContext>> asyncOperations 
        ) : base(operations, asyncOperations)
        {
            Context = new MyApplicationContext();

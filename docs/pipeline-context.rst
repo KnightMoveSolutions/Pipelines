@@ -1,3 +1,5 @@
+`Documentation Home <https://docs.knightmovesolutions.com>`_
+
 ================
 Pipeline Context
 ================
@@ -47,7 +49,7 @@ can inherit from for convenience and it looks like this.
 .. code-block:: csharp
    :linenos:
    
-   public abstrace class PipelineContext : IPipelineContext
+   public abstract class PipelineContext : IPipelineContext
    {
        public bool Successful { get; set; } = true;
        public bool EndProcessing { get; set; }

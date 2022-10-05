@@ -1,3 +1,5 @@
+`Documentation Home <https://docs.knightmovesolutions.com>`_
+
 ==========================
 Logging and Error Handling
 ==========================

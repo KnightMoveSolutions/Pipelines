@@ -1,3 +1,5 @@
+`Documentation Home <https://docs.knightmovesolutions.com>`_
+
 ==========
 Operations
 ==========
@@ -182,7 +184,7 @@ It can then be used at the end of the pipeline execution for logging and debuggi
            
            if(!okay)
            {
-               context.ResultMessages("MyOperation Failed!");
+               context.ResultMessages.Add("MyOperation Failed!");
                return;
            }
            
@@ -265,7 +267,7 @@ Later the :doc:`pipeline-context` can be used for logging and debugging.
       
    }
    
-   private static void LogExceptions(IList<string> results)
+   private static void LogExceptions(IList<Exception> results)
    {
        // Log results here 
    }
