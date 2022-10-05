@@ -5,9 +5,6 @@
 # I don't want to include the .nuspec file
 *.nuspec
 
-# don't publish the logo
-*logo.png
-
 # don't publish the visio diagram
 *.vsdx
 
