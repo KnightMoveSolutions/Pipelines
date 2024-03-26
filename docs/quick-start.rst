@@ -49,7 +49,7 @@ provides the following:
    {
         public MyPipelineCoordinator(
             IReadOnlyDictionary<Type, IPipelineOperation<MyApplicationContext>> operations,
-            IReadOnlyDictionary<Type, IPipelineContextAsync<MyApplicationContext>> asyncOperations
+            IReadOnlyDictionary<Type, IPipelineOperationAsync<MyApplicationContext>> asyncOperations
         )
             :base(operations, asyncOperations)
         {
@@ -76,7 +76,7 @@ Non-Async Operations
    // Marker Interface 
    public interface IMyOperation : IPipelineOperation<MyApplicationContext> { }
    
-   public class MyOperation : BaseOperation<MyApplicationContext>, IMyOperation
+   public class MyOperation : BasePipelineOperation<MyApplicationContext>, IMyOperation
    {
         public override void Execute(MyApplicationContext context)
         {
@@ -107,7 +107,7 @@ Async Operations
    // Marker Interface 
    public interface IMyOperationAsync : IPipelineOperationAsync<MyApplicationContext> { }
    
-   public class MyOperationAsync : BaseOperationAsync<MyApplicationContext>, IMyOperationAsync
+   public class MyOperationAsync : BasePipelineOperationAsync<MyApplicationContext>, IMyOperationAsync
    {
         private readonly SomeApiClient _someApiClient;
         
