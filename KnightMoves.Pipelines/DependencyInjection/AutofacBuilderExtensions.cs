@@ -34,13 +34,13 @@ namespace KnightMoves.Pipelines.DependencyInjection
                        !t.IsAssignableTo<IPipelineOperationAsync<TContext>>()
                    )
                    .AsImplementedInterfaces()
-                   .SingleInstance();
+                   .InstancePerDependency();
 
             // Async Operations for IList<> injection
             builder.RegisterAssemblyTypes(assembly)
                    .Where(t => t.IsAssignableTo<IPipelineOperationAsync<TContext>>())
                    .AsImplementedInterfaces()
-                   .SingleInstance();
+                   .InstancePerDependency();
 
             // Operations for IReadOnlyDictionary<> injection
             builder.Register<IReadOnlyDictionary<Type, IPipelineOperation<TContext>>>(context =>
@@ -55,7 +55,8 @@ namespace KnightMoves.Pipelines.DependencyInjection
                 var opsDict = distinctOps.ToDictionary(x => GetOperationInterfaceType<TContext>(x.GetType()));
 
                 return new ReadOnlyDictionary<Type, IPipelineOperation<TContext>>(opsDict);
-            });
+            })
+            .InstancePerDependency();
 
             // Async Operations for IReadOnlyDictionary<> injection
             builder.Register<IReadOnlyDictionary<Type, IPipelineOperationAsync<TContext>>>(context =>
@@ -70,7 +71,8 @@ namespace KnightMoves.Pipelines.DependencyInjection
                 var opsDict = distinctOps.ToDictionary(x => GetOperationInterfaceType<TContext>(x.GetType()));
 
                 return new ReadOnlyDictionary<Type, IPipelineOperationAsync<TContext>>(opsDict);
-            });
+            })
+            .InstancePerDependency();
 
             return builder;
         }

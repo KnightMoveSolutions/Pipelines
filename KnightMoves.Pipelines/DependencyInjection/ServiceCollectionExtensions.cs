@@ -34,7 +34,7 @@ namespace KnightMoves.Pipelines.DependencyInjection
                 )
                 .ToList()
                 .ForEach(t =>
-                    services.Add(new ServiceDescriptor(typeof(IPipelineOperation<TContext>), t, ServiceLifetime.Singleton))
+                    services.Add(new ServiceDescriptor(typeof(IPipelineOperation<TContext>), t, ServiceLifetime.Transient))
                 );
 
             // Async Operations for IList<> injection
@@ -46,11 +46,11 @@ namespace KnightMoves.Pipelines.DependencyInjection
                 )
                 .ToList()
                 .ForEach(t =>
-                    services.Add(new ServiceDescriptor(typeof(IPipelineOperationAsync<TContext>), t, ServiceLifetime.Singleton))
+                    services.Add(new ServiceDescriptor(typeof(IPipelineOperationAsync<TContext>), t, ServiceLifetime.Transient))
                 );
 
             // Operations for IReadOnlyDictionary<> injection
-            services.AddSingleton<IReadOnlyDictionary<Type, IPipelineOperation<TContext>>>(sp =>
+            services.AddTransient<IReadOnlyDictionary<Type, IPipelineOperation<TContext>>>(sp =>
             {
                 // Grab all operations
                 var ops = sp.GetRequiredService<IEnumerable<IPipelineOperation<TContext>>>();
@@ -65,7 +65,7 @@ namespace KnightMoves.Pipelines.DependencyInjection
             });
 
             // Async Operations for IReadOnlyDictionary<> injection
-            services.AddSingleton<IReadOnlyDictionary<Type, IPipelineOperationAsync<TContext>>>(sp =>
+            services.AddTransient<IReadOnlyDictionary<Type, IPipelineOperationAsync<TContext>>>(sp =>
             {
                 // Grab all operations
                 var ops = sp.GetRequiredService<IEnumerable<IPipelineOperationAsync<TContext>>>();
