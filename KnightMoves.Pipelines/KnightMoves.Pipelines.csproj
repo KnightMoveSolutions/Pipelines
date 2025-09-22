@@ -1,41 +1,58 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>A lightweight framework for creating custom pipelines</Description>
-    <PackageProjectUrl>https://github.com/KnightMoveSolutions/Pipelines</PackageProjectUrl>
-    <PackageLicenseExpression></PackageLicenseExpression>
-    <Copyright>Copyright 2021</Copyright>
-    <PackageTags>pipeline</PackageTags>
+    <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+	<PackageId>KnightMoves.Pipelines</PackageId>
+	<Version>2.0.0</Version>
     <Authors>Ricardo Pena</Authors>
     <Company>Knight Move Solutions, Inc.</Company>
+    <Description>A lightweight framework for creating custom pipelines</Description>
+    <Copyright>Copyright 2025</Copyright>
+    <PackageProjectUrl>https://docs.knightmovesolutions.com/pipelines/index.html</PackageProjectUrl>
     <PackageIcon>knight_move_solutions_logo.png</PackageIcon>
-    <PackageLicenseFile>License.txt</PackageLicenseFile>
     <RepositoryUrl>https://github.com/KnightMoveSolutions/Pipelines</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Initial version 1.0.0 package</PackageReleaseNotes>
+    <PackageTags>pipeline</PackageTags>
+    <PackageReleaseNotes>Fixed bug where singleton lifetime registrations did not work with async operations. Upgraded dependent packages. Removed support for .NET 5 and added support for .NET 8</PackageReleaseNotes>
     <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageLicenseFile>License.txt</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageIconUrl />
-	<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+	<IncludeSymbols>False</IncludeSymbols>
+	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	<AssemblyVersion>2.0.0</AssemblyVersion>
+	<FileVersion>2.0.0</FileVersion>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.3.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Autofac" Version="8.2.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\Hierarchical\License.txt">
+    <None Include="..\License.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="knight_move_solutions_logo.png">
+	<None Include="..\README.md">
+	  <Pack>True</Pack>
+	  <PackagePath></PackagePath>
+	</None>
+	<None Include="knight_move_solutions_logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="README.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="DeployPackageToLocalRepo" AfterTargets="pack">
+    <Exec Command="node ../local-nuget-deploy-script.js" />
+  </Target>
+	
 </Project>
