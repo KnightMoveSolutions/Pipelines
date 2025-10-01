@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
 	<PackageId>KnightMoves.Pipelines</PackageId>
-	<Version>2.0.0</Version>
+	<Version>2.1.0</Version>
     <Authors>Ricardo Pena</Authors>
     <Company>Knight Move Solutions, Inc.</Company>
     <Description>A lightweight framework for creating custom pipelines</Description>
@@ -13,14 +13,14 @@
     <RepositoryUrl>https://github.com/KnightMoveSolutions/Pipelines</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>pipeline</PackageTags>
-    <PackageReleaseNotes>Fixed bug where singleton lifetime registrations did not work with async operations. Upgraded dependent packages. Removed support for .NET 5 and added support for .NET 8</PackageReleaseNotes>
+    <PackageReleaseNotes>Added support for dynamic resolution of operation implementations when the strategy pattern is used to provide multiple implementations</PackageReleaseNotes>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseFile>License.txt</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<IncludeSymbols>False</IncludeSymbols>
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-	<AssemblyVersion>2.0.0</AssemblyVersion>
-	<FileVersion>2.0.0</FileVersion>
+	<AssemblyVersion>2.1.0</AssemblyVersion>
+	<FileVersion>2.1.0</FileVersion>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 

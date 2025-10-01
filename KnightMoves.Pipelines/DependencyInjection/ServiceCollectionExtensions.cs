@@ -55,6 +55,12 @@ namespace KnightMoves.Pipelines.DependencyInjection
                 // Grab all operations
                 var ops = sp.GetRequiredService<IEnumerable<IPipelineOperation<TContext>>>();
 
+                // Resolve forced implementations to facilitate the selection of one implementation when multiple exist
+                var opsConfig = sp.GetService<OperationConfig>();
+
+                if (opsConfig != null && opsConfig.ForcedImplementations.Any())
+                    forcedImplementations = forcedImplementations.Concat(opsConfig.ForcedImplementations).Distinct();
+
                 // Resolve multiple implementations of operations in the ops collection
                 var distinctOps = ResolveDuplicateRegistrations<IPipelineOperation<TContext>, TContext>(ops.ToList(), forcedImplementations);
 
@@ -69,6 +75,12 @@ namespace KnightMoves.Pipelines.DependencyInjection
             {
                 // Grab all operations
                 var ops = sp.GetRequiredService<IEnumerable<IPipelineOperationAsync<TContext>>>();
+
+                // Resolve forced implementations to facilitate the selection of one implementation when multiple exist
+                var opsConfig = sp.GetService<OperationConfig>();
+
+                if (opsConfig != null && opsConfig.ForcedImplementations.Any())
+                    forcedImplementations = forcedImplementations.Concat(opsConfig.ForcedImplementations).Distinct();
 
                 // Resolve multiple implementations of operations in the ops collection
                 var distinctOps = ResolveDuplicateRegistrations<IPipelineOperationAsync<TContext>, TContext>(ops.ToList(), forcedImplementations);
