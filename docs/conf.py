@@ -27,7 +27,7 @@ pygments_style = 'vs'
 
 html_logo = 'knight_move_solutions_pipelines_logo.png'
 project = 'KnightMoves.Pipelines'
-copyright = '2021, Ricardo Pena'
+copyright = '2021-2025 Knight Move Solutions, Inc'
 author = 'Ricardo Pena'
 
 # The full version, including alpha/beta/rc tags

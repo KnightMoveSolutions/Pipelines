@@ -38,6 +38,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Release Notes" href="release-notes.html" />
     <link rel="prev" title="Logging and Error Handling" href="logging-and-error-handling.html" /> 
 </head>
 
@@ -96,7 +97,12 @@
 <li class="toctree-l1"><a class="reference internal" href="async-operations.html">Async Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operation-dependencies.html">Operation Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logging-and-error-handling.html">Logging and Error Handling</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Multiple Operation Implementations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Multiple Operation Implementations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#providing-the-selected-implementation-during-di-registration">Providing the Selected Implementation During DI Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-a-factory-registration-function">Using a Factory Registration Function</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="release-notes.html">Release Notes</a></li>
 </ul>
 
             
@@ -247,8 +253,17 @@ below, then it will default to the last one if finds, which is unpredictable.</p
     <span class="p">.</span><span class="n">Execute</span><span class="p">&lt;</span><span class="n">IMyOperation</span><span class="p">&gt;()</span> <span class="c1">// Don&#39;t know which IMyOperation implementation will execute</span>
 </pre></div>
 </div>
-<p>In order to resolve this, you will need to create a collection of <code class="docutils literal notranslate"><span class="pre">System.Type</span></code> to define the implementations you want
-the <a class="reference internal" href="pipeline-coordinator.html"><span class="doc">Pipeline Coordinator</span></a> to use and feed it into the registration extension method as shown in the code below.</p>
+<p>This can be resolved in one of two ways.</p>
+<ul class="simple">
+<li><p>Provide the selected implementation when during DI registration</p></li>
+<li><p>Use a factory registration function that executes logic to determine which implementation to use</p></li>
+</ul>
+<p>Each of these approaches is described below.</p>
+<div class="section" id="providing-the-selected-implementation-during-di-registration">
+<h2>Providing the Selected Implementation During DI Registration<a class="headerlink" href="#providing-the-selected-implementation-during-di-registration" title="Permalink to this headline">¶</a></h2>
+<p>To resolve the selected implementation of your operations when the application is bootstrapped, you will need to create
+a collection of <code class="docutils literal notranslate"><span class="pre">System.Type</span></code> to define the implementations you want the <a class="reference internal" href="pipeline-coordinator.html"><span class="doc">Pipeline Coordinator</span></a> to use and feed it
+into the registration extension method as shown in the code below.</p>
 <div class="highlight-csharp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -297,7 +312,79 @@ the <a class="reference internal" href="pipeline-coordinator.html"><span class="
 </pre></div>
 </td></tr></table></div>
 <p>In the code example above, the <a class="reference internal" href="pipeline-coordinator.html"><span class="doc">Pipeline Coordinator</span></a> will use <code class="docutils literal notranslate"><span class="pre">MyAlternativeOperation</span></code> in the pipeline when calling
-the <code class="docutils literal notranslate"><span class="pre">Execute&lt;IMyOperation&gt;()</span></code> method.</p>
+the <code class="docutils literal notranslate"><span class="pre">Execute&lt;IMyOperation&gt;()</span></code> method. This will be the permanent implementation of the operation unless you change the
+<code class="docutils literal notranslate"><span class="pre">implementations</span></code> collection, rebuild, and redeploy your application.</p>
+<p>If you need to switch implementations at runtime, then you can use the factory approach described below.</p>
+</div>
+<div class="section" id="using-a-factory-registration-function">
+<h2>Using a Factory Registration Function<a class="headerlink" href="#using-a-factory-registration-function" title="Permalink to this headline">¶</a></h2>
+<p>If you need to switch implementations at runtime (useful for things like code toggles, feature flags, etc.), then you
+can use a factory function to determine which implementation to use. For this, you will need to create a factory function
+that returns an instance of the <cite>OperationConfig</cite> class as shown in the code below.</p>
+<div class="highlight-csharp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">KnightMoves.Pipelines.DependencyInjection</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.Extensions.DependencyInjection</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Startup</span>
+<span class="p">{</span>
+    <span class="p">...</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="p">...</span>
+        <span class="n">services</span><span class="p">.</span><span class="n">AddTransient</span><span class="p">(</span><span class="n">sp</span> <span class="p">=&gt;</span> <span class="p">{</span>
+
+            <span class="c1">// Logic here to determine which implementation to use based on</span>
+            <span class="c1">// config, environment, sp.GetRequiredService&lt;T&gt;(), etc.</span>
+            <span class="kt">var</span> <span class="n">useAlternative</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+
+            <span class="k">return</span> <span class="k">new</span> <span class="n">OperationConfig</span>
+            <span class="p">{</span>
+                <span class="n">ForcedImplementations</span> <span class="p">=</span> <span class="n">useAlternative</span> <span class="p">?</span>
+<span class="na">                     [ typeof(MyAlternativeOperation) ]</span> <span class="p">:</span>
+<span class="na">                     [ typeof(MyOperation) ]</span>
+            <span class="p">};</span>
+
+        <span class="p">});</span>
+
+        <span class="c1">// OperationConfig will be used to resolve the selected implementations at runtime</span>
+        <span class="n">services</span><span class="p">.</span><span class="n">AddPipelineCoordinator</span><span class="p">&lt;</span><span class="n">MyPipelineCoordinator</span><span class="p">,</span> <span class="n">MyApplicationContext</span><span class="p">&gt;(</span><span class="k">typeof</span><span class="p">(</span><span class="n">Startup</span><span class="p">).</span><span class="n">Assembly</span><span class="p">);</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>With the setup above, the factory function will be called each time an instance of the <a class="reference internal" href="pipeline-coordinator.html"><span class="doc">Pipeline Coordinator</span></a> is created.
+This will allow you to execute logic to determine which implementation of <code class="docutils literal notranslate"><span class="pre">IMyOperation</span></code> to use at runtime.</p>
+</div>
 </div>
 
 
@@ -306,6 +393,7 @@ the <code class="docutils literal notranslate"><span class="pre">Execute&lt;IMyO
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="release-notes.html" class="btn btn-neutral float-right" title="Release Notes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="logging-and-error-handling.html" class="btn btn-neutral float-left" title="Logging and Error Handling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
@@ -313,7 +401,7 @@ the <code class="docutils literal notranslate"><span class="pre">Execute&lt;IMyO
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, Ricardo Pena.
+        &#169; Copyright 2021-2025 Knight Move Solutions, Inc.
 
     </p>
   </div>

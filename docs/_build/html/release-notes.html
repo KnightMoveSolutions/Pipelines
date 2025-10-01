@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Logging and Error Handling &mdash; KnightMoves.Pipelines 1.0.0 documentation</title>
+  <title>Release Notes &mdash; KnightMoves.Pipelines 1.0.0 documentation</title>
   
 
   
@@ -38,8 +38,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Multiple Operation Implementations" href="multiple-operation-implementations.html" />
-    <link rel="prev" title="Operation Dependencies" href="operation-dependencies.html" /> 
+    <link rel="prev" title="Multiple Operation Implementations" href="multiple-operation-implementations.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -96,9 +95,14 @@
 <li class="toctree-l1"><a class="reference internal" href="operations.html">Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="async-operations.html">Async Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operation-dependencies.html">Operation Dependencies</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Logging and Error Handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging-and-error-handling.html">Logging and Error Handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="multiple-operation-implementations.html">Multiple Operation Implementations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="release-notes.html">Release Notes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">2.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">2.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">1.0.0</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -147,13 +151,13 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Logging and Error Handling</li>
+      <li>Release Notes</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/logging-and-error-handling.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/release-notes.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -167,28 +171,31 @@
            <div itemprop="articleBody">
             
   <p><a class="reference external" href="https://docs.knightmovesolutions.com">Documentation Home</a></p>
-<div class="section" id="logging-and-error-handling">
-<h1>Logging and Error Handling<a class="headerlink" href="#logging-and-error-handling" title="Permalink to this headline">¶</a></h1>
-<p>One of the benefits of using this framework is that logging and error messages can be consolidated in the <a class="reference internal" href="pipeline-context.html"><span class="doc">Pipeline Context</span></a>
-state object, which contains the following two properties.</p>
-<p><code class="docutils literal notranslate"><span class="pre">IList&lt;string&gt;</span> <span class="pre">ResultMessages</span></code></p>
-<p>and</p>
-<p><code class="docutils literal notranslate"><span class="pre">List&lt;Exception&gt;</span> <span class="pre">Exceptions</span></code></p>
-<p>These cross-cutting concerns can be handled at the end of the execution of the pipeline in order to ensure a centrally located
-place for logging and exception handling.</p>
-<p>the <a class="reference internal" href="pipeline-coordinator.html"><span class="doc">Pipeline Coordinator</span></a> does its best to gracefully handle any exceptions thrown or not caught by the Operations you
-create. For <a class="reference internal" href="async-operations.html"><span class="doc">Async Operations</span></a> it is more difficult to handle those so it is always best to include try/catch blocks in
-the <a class="reference external" href="async-operations.html#step-4-implement-operation-logic">ExecuteAsync() and CompletedTaskCallback()</a> methods of any
-<a class="reference internal" href="async-operations.html"><span class="doc">Async Operations</span></a>. If you handle exceptions yourself you can add the exception to the <cite>Exceptions</cite> property of the
-application’s <a class="reference internal" href="pipeline-context.html"><span class="doc">Pipeline Context</span></a> object and then handle its logging after the pipeline is finished executing. This way,
-you don’t have to inject and interweave logging code in all of the Operations.</p>
-<p>However, there is nothing in the Pipelines framework that forces you to use its logging and exception handling properties.
-You are free to implement logging everywhere, use an Aspect-Oriented Programming approach, or not log anything at all.</p>
-<p>If the <a class="reference internal" href="pipeline-coordinator.html"><span class="doc">Pipeline Coordinator</span></a> catches an unhandled exception thrown in any of the Operations executed in the pipeline,
-then it will add it to the <a class="reference internal" href="pipeline-context.html"><span class="doc">Pipeline Context</span></a>’s <code class="docutils literal notranslate"><span class="pre">Exceptions</span></code> collection and set the <code class="docutils literal notranslate"><span class="pre">Successful</span></code> property to
-<code class="docutils literal notranslate"><span class="pre">false</span></code> for you.</p>
-<p>The <a class="reference internal" href="pipeline-coordinator.html"><span class="doc">Pipeline Coordinator</span></a> provides no logging capabilities whatsoever. You will have to log before the pipeline
-executes, after the pipeline executes, and/or within the Operations themselves if you so choose.</p>
+<div class="section" id="release-notes">
+<h1>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>2.1.0<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p><strong>Latest stable release</strong></p>
+<ul>
+<li><p>Added support for dynamic resolution of operation implementations when the Strategy Pattern is used to provide multiple implementations.</p>
+<p>See the <strong>Using a Factory Registration Function</strong> section of the <a class="reference internal" href="multiple-operation-implementations.html"><span class="doc">Multiple Operation Implementations</span></a> documentation for more details.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>2.0.0<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Fixed bug where singleton lifetime registrations did not work with async operations</p></li>
+<li><p>Upgraded dependent packages</p></li>
+<li><p>Removed support for .NET 5 and added support for .NET 8</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>1.0.0<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Initial release</p></li>
+</ul>
+</div>
 </div>
 
 
@@ -197,8 +204,7 @@ executes, after the pipeline executes, and/or within the Operations themselves i
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="multiple-operation-implementations.html" class="btn btn-neutral float-right" title="Multiple Operation Implementations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="operation-dependencies.html" class="btn btn-neutral float-left" title="Operation Dependencies" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="multiple-operation-implementations.html" class="btn btn-neutral float-left" title="Multiple Operation Implementations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

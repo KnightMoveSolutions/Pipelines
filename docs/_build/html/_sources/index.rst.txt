@@ -21,5 +21,6 @@ Welcome to KnightMoves.Pipelines documentation!
    operation-dependencies
    logging-and-error-handling
    multiple-operation-implementations
+   release-notes
 
 `Back to Docs Home <https://docs.knightmovesolutions.com>`_
